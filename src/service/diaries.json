@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "carrera": "Ingeniería en Sistemas",
+    "materias": "Analisis Matematico",
+    "dias": "Lunes",
+    "mes": "Febrero",
+    "horas": 9,
+    "minutos": 0,
+    "descripcion": "mesa de examen final",
+    "posicion": "presidente de mesa"
+  },
+  {
+    "id": 2,
+    "carrera": "Arquitectura",
+    "materias": "Fisica",
+    "dias": "Martes",
+    "mes": "Abril",
+    "horas": 10,
+    "minutos": 30,
+    "descripcion": "mesa de examen especial",
+    "posicion": "vocal de mesa"
+  },
+  {
+    "id": 3,
+    "carrera": "Contaduría",
+    "materias": "Impuestos I",
+    "dias": "Miercoles",
+    "mes": "Junio",
+    "horas": 12,
+    "minutos": 0,
+    "descripcion": "mesa de examen final",
+    "posicion": "suplente de mesa"
+  }
+]

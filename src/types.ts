@@ -1,6 +1,3 @@
-export type Horas = 9 | 10 | 12 | 13 | 14 | 15
-export type Minutos = 0 | 30
-
 export enum Carrera {
   IngenieriaEnSistemas = 'Ingeniería en Sistemas',
   Arquitectura = 'Arquitectura',
@@ -51,12 +48,12 @@ export interface DiaryEntry {
   materias: Materias
   dias: Dias
   mes: Mes
-  horas: Horas
-  minutos: Minutos
+  horas: number
+  minutos: number
   descripcion: Descripcion
   posicion: Posicion
 }
 
-export type NoSensitiveInfoDiaryEntry = pick<DiaryEntry, 'mes' | 'dias' | 'horas' | 'minutos' | 'descripcion' | 'posicion'>
+export type NoSensitiveInfoDiaryEntry = Pick<DiaryEntry, 'mes' | 'dias' | 'horas' | 'minutos' | 'descripcion' | 'posicion'>
 
 export type NewDiaryEntry = Omit<DiaryEntry, 'id'>
