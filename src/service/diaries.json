@@ -1,5 +1,6 @@
 [
   {
+    "profesor": "jose Fernandez",
     "id": 1,
     "carrera": "Ingeniería en Sistemas",
     "materias": "Analisis Matematico",
@@ -11,6 +12,7 @@
     "posicion": "presidente de mesa"
   },
   {
+    "profesor": "jose Fernandez",
     "id": 2,
     "carrera": "Arquitectura",
     "materias": "Fisica",
@@ -22,6 +24,7 @@
     "posicion": "vocal de mesa"
   },
   {
+    "profesor": "Gilda Romero",
     "id": 3,
     "carrera": "Contaduría",
     "materias": "Impuestos I",

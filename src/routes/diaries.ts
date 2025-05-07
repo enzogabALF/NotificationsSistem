@@ -25,5 +25,16 @@ router.post('/', (req, res) => {
     res.status(400).send('malformed data')
   }
 })
+/* router.post('/mesa/:id/paranotificar', (req, res) => {
+  const { id } = req.params
+  const { message } = req.body
+
+  if (!message) {
+    return res.status(400).send('Missing notification message');
+  }
+
+  // Aquí puedes implementar la lógica para enviar la notificación
+  res.status(200).send(`Notification sent for mesa ID ${id} with message: ${message}`);
+}) */
 
 export default router

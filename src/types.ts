@@ -1,3 +1,8 @@
+export enum Profesor {
+  Gilda = 'Gilda Romero',
+  Jose = 'jose Fernandez'
+}
+
 export enum Carrera {
   IngenieriaEnSistemas = 'Ingeniería en Sistemas',
   Arquitectura = 'Arquitectura',
@@ -44,6 +49,7 @@ export enum Posicion {
 
 export interface DiaryEntry {
   id: number
+  profesor: Profesor
   carrera: Carrera
   materias: Materias
   dias: Dias

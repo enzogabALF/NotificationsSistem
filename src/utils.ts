@@ -1,7 +1,14 @@
-import { Carrera, Descripcion, Dias, Materias, Mes, NewDiaryEntry, Posicion } from './types'
+import { Profesor, Carrera, Descripcion, Dias, Materias, Mes, NewDiaryEntry, Posicion } from './types'
 
 const parseComent = (comemtFromRequest: any): Carrera => {
   if (!isString(comemtFromRequest) || !isCarrera(comemtFromRequest)) {
+    throw new Error('Incorrect or missing comment')
+  }
+  return comemtFromRequest
+}
+
+const parseProfesor = (comemtFromRequest: any): Profesor => {
+  if (!isString(comemtFromRequest) || !isProfesor(comemtFromRequest)) {
     throw new Error('Incorrect or missing comment')
   }
   return comemtFromRequest
@@ -64,6 +71,10 @@ const isMaterias = (params: any): boolean => {
   return Object.values(Materias).includes(params)
 }
 
+const isProfesor = (params: any): boolean => {
+  return Object.values(Profesor).includes(params)
+}
+
 const isDias = (params: any): boolean => {
   return Object.values(Dias).includes(params)
 }
@@ -90,6 +101,7 @@ const isNumber = (number: number): boolean => {
 
 export const toNewDaiaryEntry = (object: any): NewDiaryEntry => {
   const newEntry: NewDiaryEntry = {
+    profesor: parseProfesor(object.profesor),
     carrera: parseComent(object.carrera),
     materias: parseMaterias(object.materias),
     dias: parseDias(object.dias),

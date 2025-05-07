@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "express": "5.1.0",
-    "gestornotificationsbakend": "file:"
+    "gestornotificationsbakend": "file:",
+    "web-push": "^3.6.7"
   },
   "eslintConfig": {
     "parserOptions": {
