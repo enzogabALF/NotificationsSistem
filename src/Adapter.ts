@@ -1,4 +1,4 @@
-import { Profesor, Carrera, Descripcion, Dia, Materia, Fecha, NewDiaryEntry, Posicion } from './types'
+import { Profesor, Carrera, Descripcion, Materia, NewDiaryEntry, Cargo } from './Interface'
 
 const parseComent = (comemtFromRequest: any): Carrera => {
   if (!isString(comemtFromRequest) || !isCarrera(comemtFromRequest)) {
@@ -21,13 +21,6 @@ const parseMaterias = (comemtFromRequest: any): Materia => {
   return comemtFromRequest
 }
 
-const parseDias = (comemtFromRequest: any): Dia => {
-  if (!isString(comemtFromRequest) || !isDias(comemtFromRequest)) {
-    throw new Error('Incorrect or missing comment')
-  }
-  return comemtFromRequest
-}
-
 const parseDescripcion = (comemtFromRequest: any): Descripcion => {
   if (!isString(comemtFromRequest) || !isDescripcion(comemtFromRequest)) {
     throw new Error('Incorrect or missing comment')
@@ -35,8 +28,15 @@ const parseDescripcion = (comemtFromRequest: any): Descripcion => {
   return comemtFromRequest
 }
 
-const parsePosicion = (comemtFromRequest: any): Posicion => {
+const parsePosicion = (comemtFromRequest: any): Cargo => {
   if (!isString(comemtFromRequest) || !isPosicion(comemtFromRequest)) {
+    throw new Error('Incorrect or missing comment')
+  }
+  return comemtFromRequest
+}
+
+const parseVerification = (comemtFromRequest: any): boolean => {
+  if (!isBoolean(comemtFromRequest)) {
     throw new Error('Incorrect or missing comment')
   }
   return comemtFromRequest
@@ -54,20 +54,19 @@ const isProfesor = (params: any): boolean => {
   return Object.values(Profesor).includes(params)
 }
 
-const isDias = (params: any): boolean => {
-  return Object.values(Dia).includes(params)
-}
-
 const isDescripcion = (params: any): boolean => {
   return Object.values(Descripcion).includes(params)
 }
 
 const isPosicion = (params: any): boolean => {
-  return Object.values(Posicion).includes(params)
+  return Object.values(Cargo).includes(params)
 }
 
 const isString = (string: String): boolean => {
   return typeof string === 'string'
+}
+const isBoolean = (boolean: boolean): boolean => {
+  return typeof boolean === 'boolean'
 }
 
 export const toNewDaiaryEntry = (object: any): NewDiaryEntry => {
@@ -75,9 +74,11 @@ export const toNewDaiaryEntry = (object: any): NewDiaryEntry => {
     profesor: parseProfesor(object.profesor),
     carrera: parseComent(object.carrera),
     materia: parseMaterias(object.materias),
-    dia: parseDias(object.dias),
+    fecha: new Date(object.fecha),
     descripcion: parseDescripcion(object.descripcion),
-    posicion: parsePosicion(object.posicion)
+    cargo: parsePosicion(object.posicion),
+    verification: parseVerification(object.verification),
+    createdAt: new Date()
   }
   return newEntry
 }

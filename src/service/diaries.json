@@ -1,38 +1,3 @@
 [
-  {
-    "id": 1,
-    "profesor": "jose Fernandez",
-    "carrera": "Ingeniería en Sistemas",
-    "materias": "Analisis Matematico",
-    "dias": "Lunes",
-    "mes": "Diciembre",
-    "horas": 9,
-    "minutos": 0,
-    "descripcion": "mesa de examen final",
-    "posicion": "presidente de mesa"
-  },
-  {
-    "id": 2,
-    "profesor": "jose Fernandez",
-    "carrera": "Arquitectura",
-    "materias": "Fisica",
-    "dias": "Martes",
-    "mes": "Diciembre",
-    "horas": 10,
-    "minutos": 30,
-    "descripcion": "mesa de examen especial",
-    "posicion": "vocal de mesa"
-  },
-  {
-    "id": 3,
-    "profesor": "Gilda Romero",
-    "carrera": "Contaduría",
-    "materias": "Impuestos I",
-    "dias": "Miercoles",
-    "mes": "Junio",
-    "horas": 12,
-    "minutos": 0,
-    "descripcion": "mesa de examen final",
-    "posicion": "suplente de mesa"
-  }
+  
 ]

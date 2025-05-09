@@ -1,4 +1,4 @@
-import { DiaryEntry, NewDiaryEntry, NoSensitiveInfoDiaryEntry } from '../types'
+import { DiaryEntry, NewDiaryEntry, NoSensitiveInfoDiaryEntry } from '../Interface'
 import diaryData from './diaries.json'
 
 const diaries: DiaryEntry[] = diaryData as DiaryEntry[]
@@ -11,16 +11,17 @@ export const findById = (id: number): DiaryEntry | undefined => {
 }
 
 export const getEntrisWithoutSensitiveInfo = (): NoSensitiveInfoDiaryEntry[] => {
-  return diaries.map(({ profesor, carrera, materia, dia, fecha, descripcion, cargo, verification }) => {
+  return diaries.map(({ profesor, carrera, materia, fecha, descripcion, cargo, verification, createdAt }) => {
     return {
       profesor,
       carrera,
       materia,
-      dia,
       fecha,
       descripcion,
       cargo,
-      verification
+      verification,
+      createdAt
+
     }
   })
 }

@@ -1,6 +1,6 @@
 import express from 'express'
 import * as diariesServi from '../service/diariesServi'
-import { toNewDaiaryEntry } from '../utils'
+import { toNewDaiaryEntry } from '../Adapter'
 
 const router = express.Router()
 

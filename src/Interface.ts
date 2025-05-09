@@ -17,20 +17,12 @@ export enum Materia {
   Quimica = 'Quimica',
 }
 
-export enum Dia {
-  Lunes = 'Lunes',
-  Martes = 'Martes',
-  Miercoles = 'Miercoles',
-  Jueves = 'Jueves',
-  Viernes = 'Viernes'
-}
-
 export enum Descripcion {
   MesaDeExamenFinal = 'Examen FInal',
   MesaDeExamenEspecial = 'Mesa de examen especial'
 }
 
-export enum Posicion {
+export enum Cargo {
   PresidenteDeMesa = 'Examinador',
   VocalDeMesa = 'Vocal de mesa',
   SuplenteDeMesa = 'Examinador suplente'
@@ -41,11 +33,23 @@ export interface DiaryEntry {
   profesor: Profesor
   carrera: Carrera
   materia: Materia
-  dia: Dia
   fecha: Date
   descripcion: Descripcion
-  cargo: Posicion
+  cargo: Cargo
   verification: boolean
+  createdAt: Date
+}
+
+export interface Notification {
+  id: number
+  profesor: Profesor
+  mensage: String
+  fechaMesa: Date
+  materia: Materia
+  carrera: Carrera
+  cargo: Cargo
+  leido: boolean
+  createAt: Date
 }
 
 export type NewDiaryEntry = Omit<DiaryEntry, 'id'>
