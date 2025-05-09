@@ -12,8 +12,9 @@ router.get('/:id', (req, res) => {
   const diary = diariesServi.findById(+req.params.id)
   if (diary != null) {
     res.send(diary)
+  } else {
+    res.status(404).send('Diary not found')
   }
-  res.status(404).send('Diary not found')
 })
 
 router.post('/', (req, res) => {
@@ -25,16 +26,20 @@ router.post('/', (req, res) => {
     res.status(400).send('malformed data')
   }
 })
-/* router.post('/mesa/:id/paranotificar', (req, res) => {
-  const { id } = req.params
-  const { message } = req.body
 
-  if (!message) {
-    return res.status(400).send('Missing notification message');
+router.put('/:id', (req, res) => {
+  try {
+    const id = +req.params.id
+    const updatedEntry = toNewDaiaryEntry(req.body)
+    const diaryEntry = diariesServi.updateDiaryEntry(id, updatedEntry)
+    if (diaryEntry != null) {
+      res.json(diaryEntry)
+    } else {
+      res.status(404).send('Diary entry not found')
+    }
+  } catch (e) {
+    res.status(400).send('Malformed data or validation error')
   }
-
-  // Aquí puedes implementar la lógica para enviar la notificación
-  res.status(200).send(`Notification sent for mesa ID ${id} with message: ${message}`);
-}) */
+})
 
 export default router

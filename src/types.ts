@@ -6,22 +6,18 @@ export enum Profesor {
 export enum Carrera {
   IngenieriaEnSistemas = 'Ingeniería en Sistemas',
   Arquitectura = 'Arquitectura',
-  Contaduria = 'Contaduría',
-  Psicologia = 'Psicología',
-  Abogacia = 'Abogacía'
+  Nutricion = 'Licenciatura de nutricion'
 }
 
-export enum Materias {
+export enum Materia {
   AnalisisMatematico = 'Analisis Matematico',
   ProgramacionEstructurada = 'Programacion Estructurada',
   Fisica = 'Fisica',
   DerechoCivil = 'Derecho Civil',
-  Pedagogica = 'Pedagogica',
   Quimica = 'Quimica',
-  ImpuestosI = 'Impuestos I'
 }
 
-export enum Dias {
+export enum Dia {
   Lunes = 'Lunes',
   Martes = 'Martes',
   Miercoles = 'Miercoles',
@@ -29,37 +25,28 @@ export enum Dias {
   Viernes = 'Viernes'
 }
 
-export enum Mes {
-  Febrero = 'Febrero',
-  Abril = 'Abril',
-  Junio = 'Junio',
-  Diciembre = 'Diciembre'
-}
-
 export enum Descripcion {
-  MesaDeExamenFinal = 'mesa de examen final',
-  MesaDeExamenEspecial = 'mesa de examen especial'
+  MesaDeExamenFinal = 'Examen FInal',
+  MesaDeExamenEspecial = 'Mesa de examen especial'
 }
 
 export enum Posicion {
-  PresidenteDeMesa = 'presidente de mesa',
-  VocalDeMesa = 'vocal de mesa',
-  SuplenteDeMesa = 'suplente de mesa'
+  PresidenteDeMesa = 'Examinador',
+  VocalDeMesa = 'Vocal de mesa',
+  SuplenteDeMesa = 'Examinador suplente'
 }
 
 export interface DiaryEntry {
   id: number
   profesor: Profesor
   carrera: Carrera
-  materias: Materias
-  dias: Dias
-  mes: Mes
-  horas: number
-  minutos: number
+  materia: Materia
+  dia: Dia
+  fecha: Date
   descripcion: Descripcion
-  posicion: Posicion
+  cargo: Posicion
+  verification: boolean
 }
 
-export type NoSensitiveInfoDiaryEntry = Pick<DiaryEntry, 'mes' | 'dias' | 'horas' | 'minutos' | 'descripcion' | 'posicion'>
-
 export type NewDiaryEntry = Omit<DiaryEntry, 'id'>
+export type NoSensitiveInfoDiaryEntry = Omit<DiaryEntry, 'id' | 'verification'>

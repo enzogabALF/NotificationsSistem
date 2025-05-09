@@ -1,4 +1,4 @@
-import { Profesor, Carrera, Descripcion, Dias, Materias, Mes, NewDiaryEntry, Posicion } from './types'
+import { Profesor, Carrera, Descripcion, Dia, Materia, Fecha, NewDiaryEntry, Posicion } from './types'
 
 const parseComent = (comemtFromRequest: any): Carrera => {
   if (!isString(comemtFromRequest) || !isCarrera(comemtFromRequest)) {
@@ -14,36 +14,15 @@ const parseProfesor = (comemtFromRequest: any): Profesor => {
   return comemtFromRequest
 }
 
-const parseMaterias = (comemtFromRequest: any): Materias => {
+const parseMaterias = (comemtFromRequest: any): Materia => {
   if (!isString(comemtFromRequest) || !isMaterias(comemtFromRequest)) {
     throw new Error('Incorrect or missing comment')
   }
   return comemtFromRequest
 }
 
-const parseDias = (comemtFromRequest: any): Dias => {
+const parseDias = (comemtFromRequest: any): Dia => {
   if (!isString(comemtFromRequest) || !isDias(comemtFromRequest)) {
-    throw new Error('Incorrect or missing comment')
-  }
-  return comemtFromRequest
-}
-
-const parseMes = (comemtFromRequest: any): Mes => {
-  if (!isString(comemtFromRequest) || !isMes(comemtFromRequest)) {
-    throw new Error('Incorrect or missing comment')
-  }
-  return comemtFromRequest
-}
-
-const parseHoras = (comemtFromRequest: any): number => {
-  if (isString(comemtFromRequest) && isNumber(comemtFromRequest)) {
-    throw new Error('Incorrect or missing comment')
-  }
-  return comemtFromRequest
-}
-
-const parseMinutos = (comemtFromRequest: any): number => {
-  if (isString(comemtFromRequest) && isNumber(comemtFromRequest)) {
     throw new Error('Incorrect or missing comment')
   }
   return comemtFromRequest
@@ -68,7 +47,7 @@ const isCarrera = (params: any): boolean => {
 }
 
 const isMaterias = (params: any): boolean => {
-  return Object.values(Materias).includes(params)
+  return Object.values(Materia).includes(params)
 }
 
 const isProfesor = (params: any): boolean => {
@@ -76,11 +55,7 @@ const isProfesor = (params: any): boolean => {
 }
 
 const isDias = (params: any): boolean => {
-  return Object.values(Dias).includes(params)
-}
-
-const isMes = (params: any): boolean => {
-  return Object.values(Mes).includes(params)
+  return Object.values(Dia).includes(params)
 }
 
 const isDescripcion = (params: any): boolean => {
@@ -95,19 +70,12 @@ const isString = (string: String): boolean => {
   return typeof string === 'string'
 }
 
-const isNumber = (number: number): boolean => {
-  return typeof number === 'number'
-}
-
 export const toNewDaiaryEntry = (object: any): NewDiaryEntry => {
   const newEntry: NewDiaryEntry = {
     profesor: parseProfesor(object.profesor),
     carrera: parseComent(object.carrera),
-    materias: parseMaterias(object.materias),
-    dias: parseDias(object.dias),
-    mes: parseMes(object.mes),
-    horas: parseHoras(object.horas),
-    minutos: parseMinutos(object.minutos),
+    materia: parseMaterias(object.materias),
+    dia: parseDias(object.dias),
     descripcion: parseDescripcion(object.descripcion),
     posicion: parsePosicion(object.posicion)
   }
