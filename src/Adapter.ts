@@ -1,4 +1,4 @@
-import { Profesor, Carrera, Descripcion, Materia, NewDiaryEntry, Cargo } from './Interface'
+import { Profesor, Carrera, Descripcion, Materia, NewDiaryEntry, Cargo, NewNotification } from './Interface'
 
 const parseComent = (comemtFromRequest: any): Carrera => {
   if (!isString(comemtFromRequest) || !isCarrera(comemtFromRequest)) {
@@ -30,6 +30,13 @@ const parseDescripcion = (comemtFromRequest: any): Descripcion => {
 
 const parsePosicion = (comemtFromRequest: any): Cargo => {
   if (!isString(comemtFromRequest) || !isPosicion(comemtFromRequest)) {
+    throw new Error('Incorrect or missing comment')
+  }
+  return comemtFromRequest
+}
+
+const parseDate = (comemtFromRequest: any): Date => {
+  if (!isDate(comemtFromRequest)) {
     throw new Error('Incorrect or missing comment')
   }
   return comemtFromRequest
@@ -69,16 +76,35 @@ const isBoolean = (boolean: boolean): boolean => {
   return typeof boolean === 'boolean'
 }
 
+const isDate = (date: Date): boolean => {
+  return date instanceof Date && !isNaN(date.getTime())
+}
+
 export const toNewDaiaryEntry = (object: any): NewDiaryEntry => {
   const newEntry: NewDiaryEntry = {
     profesor: parseProfesor(object.profesor),
     carrera: parseComent(object.carrera),
     materia: parseMaterias(object.materias),
-    fecha: new Date(object.fecha),
+    fecha: parseDate(object.fechaMesa),
     descripcion: parseDescripcion(object.descripcion),
     cargo: parsePosicion(object.posicion),
     verification: parseVerification(object.verification),
-    createdAt: new Date()
+    createdAt: parseDate(object.createdAt)
+  }
+  return newEntry
+}
+
+export const toNewNotification = (object: any): NewNotification => {
+  const newEntry: NewNotification = {
+    profesor: parseProfesor(object.profesor),
+    vocal: parseProfesor(object.vocal),
+    mensage: object.mensage,
+    fechaMesa: parseDate(object.fechaMesa),
+    materia: parseMaterias(object.materia),
+    carrera: parseComent(object.carrera),
+    cargo: parsePosicion(object.cargo),
+    leido: parseVerification(object.leido),
+    createAt: parseDate(object.createdAt)
   }
   return newEntry
 }

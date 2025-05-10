@@ -43,6 +43,7 @@ export interface DiaryEntry {
 export interface Notification {
   id: number
   profesor: Profesor
+  vocal: Profesor
   mensage: String
   fechaMesa: Date
   materia: Materia
@@ -54,3 +55,5 @@ export interface Notification {
 
 export type NewDiaryEntry = Omit<DiaryEntry, 'id'>
 export type NoSensitiveInfoDiaryEntry = Omit<DiaryEntry, 'id' | 'verification'>
+export type NewNotification = Omit<Notification, 'id'>
+export type NoSensitiveInfoNotification = Omit<Notification, 'id' | 'leido'>

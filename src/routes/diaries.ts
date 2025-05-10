@@ -1,6 +1,7 @@
 import express from 'express'
 import * as diariesServi from '../service/diariesServi'
-import { toNewDaiaryEntry } from '../Adapter'
+import { toNewDaiaryEntry, toNewNotification } from '../Adapter'
+import { sendPushNotification } from '../service/notifications'
 
 const router = express.Router()
 
@@ -39,6 +40,23 @@ router.put('/:id', (req, res) => {
     }
   } catch (e) {
     res.status(400).send('Malformed data or validation error')
+  }
+})
+
+router.post('/notifications', (req, res) => {
+  try {
+    const subscription = req.body.subscription
+    const notificationData = toNewNotification(req.body.notification)
+
+    if (!subscription) {
+      return res.status(400).send('Missing subscription data')
+    }
+
+    sendPushNotification(subscription, notificationData)
+    res.status(200).send('Notification sent successfully')
+  } catch (error) {
+    console.error('Error sending notification:', error)
+    res.status(500).send('Failed to send notification')
   }
 })
 
