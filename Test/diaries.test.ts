@@ -1,146 +1,145 @@
-import request from 'supertest'
-import express from 'express'
-import diariesRouter from '../src/routes/diaries'
-import * as diariesService from '../src/service/diariesServi'
-import { toNewDaiaryEntry } from '../src/Adapter'
+// tests/diaries.test.ts
+import request from 'supertest';
+import express from 'express';
+import diariesRouter from '../src/routes/diaries';
+import * as diariesServi from '../src/service/diariesServi';
+import { toNewDaiaryEntry } from '../src/Adapter';
+import { Carrera, Descripcion, Materia, NoSensitiveInfoDiaryEntry, Profesor } from '../src/Interface';
 
-// Mock de los módulos
-jest.mock('../service/diariesServi')
-jest.mock('../Adapter')
+// Mockear el módulo completo con la ruta correcta
+jest.mock('../src/service/diariesServi');
 
-const app = express()
-app.use(express.json())
-app.use('/api/diaries', diariesRouter)
+const app = express();
+app.use(express.json());
+app.use('/api/diaries', diariesRouter);
 
 describe('Diaries Router', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
-  })
+    jest.clearAllMocks();
+  });
 
-  describe('GET /api/diaries', () => {
-    test('should return all diaries without sensitive info', async () => {
-      const mockDiaries = [{ id: 1, comment: 'Test comment', date: '2023-01-01', weather: 'sunny' }]
-      ;(diariesService.getEntrisWithoutSensitiveInfo as jest.Mock).mockReturnValue(mockDiaries)
+  describe('GET /', () => {
+    it('should return all diaries without sensitive info', async () => {
+      // Mock completo con todas las propiedades requeridas
+      const mockDiaries: NoSensitiveInfoDiaryEntry[] = [{
+        profesor: Profesor.PROFESOR1, 
+        carrera: Carrera.INGENIERIA_INFORMATICA,
+        materia: Materia.PROGRAMACION,
+        fecha: new Date('2023-01-01'),
+        descripcion: Descripcion.MESA_DE_EXAMEN,
+        cargo: 'Asistente',
+        verification: true,
+        createdAt: new Date('2023-01-01T00:00:00.000Z')
+      }];
 
-      const response = await request(app).get('/api/diaries')
+      // Mock más simple con TypeScript
+      (diariesServi.getEntrisWithoutSensitiveInfo as jest.Mock).mockReturnValue(mockDiaries);
+
+      const response = await request(app).get('/api/diaries');
       
-      expect(response.status).toBe(200)
-      expect(response.body).toEqual(mockDiaries)
-      expect(diariesService.getEntrisWithoutSensitiveInfo).toHaveBeenCalledTimes(1)
-    })
-  })
+      // Verificaciones
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(mockDiaries);
+      expect(diariesServi.getEntrisWithoutSensitiveInfo).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('GET /:id', () => {
+    it('should return a diary when found', async () => {
+      const mockDiary = { id: 1, title: 'Found Diary' };
+      (diariesServi.findById as jest.Mock).mockReturnValue(mockDiary);
 
-  describe('GET /api/diaries/:id', () => {
-    test('should return a diary when found', async () => {
-      const mockDiary = { id: 1, comment: 'Test comment', date: '2023-01-01', weather: 'sunny' }
-      ;(diariesService.findById as jest.Mock).mockReturnValue(mockDiary)
-
-      const response = await request(app).get('/api/diaries/1')
+      const response = await request(app).get('/api/diaries/1');
       
-      expect(response.status).toBe(200)
-      expect(response.body).toEqual(mockDiary)
-      expect(diariesService.findById).toHaveBeenCalledWith(1)
-    })
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(mockDiary);
+      expect(diariesServi.findById).toHaveBeenCalledWith(1);
+    });
 
-    test('should return 404 when diary not found', async () => {
-      ;(diariesService.findById as jest.Mock).mockReturnValue(null)
+    it('should return 404 when diary not found', async () => {
+      (diariesServi.findById as jest.Mock).mockReturnValue(null);
 
-      const response = await request(app).get('/api/diaries/999')
+      const response = await request(app).get('/api/diaries/999');
       
-      expect(response.status).toBe(404)
-      expect(response.text).toBe('Diary not found')
-    })
-  })
+      expect(response.status).toBe(404);
+      expect(response.text).toBe('Diary not found');
+    });
+  });
 
-  describe('POST /api/diaries', () => {
-    test('should add a new diary entry with valid data', async () => {
-      const newEntry = { 
-        comment: 'New entry', 
-        date: '2023-01-01', 
-        weather: 'sunny',
-        visibility: 'good'
-      }
-      const mockAddedEntry = { id: 2, ...newEntry }
+  describe('POST /', () => {
+    it('should add a new diary entry', async () => {
+      const mockEntry = { title: 'New Entry', content: 'Test content' };
+      const mockSavedEntry = { id: 2, ...mockEntry };
       
-      ;(toNewDaiaryEntry as jest.Mock).mockReturnValue(newEntry)
-      ;(diariesService.addDiary as jest.Mock).mockReturnValue(mockAddedEntry)
+      (toNewDaiaryEntry as jest.Mock).mockReturnValue(mockEntry);
+      (diariesServi.addDiary as jest.Mock).mockReturnValue(mockSavedEntry);
 
       const response = await request(app)
         .post('/api/diaries')
-        .send(newEntry)
+        .send(mockEntry);
       
-      expect(response.status).toBe(200)
-      expect(response.body).toEqual(mockAddedEntry)
-      expect(toNewDaiaryEntry).toHaveBeenCalledWith(newEntry)
-      expect(diariesService.addDiary).toHaveBeenCalledWith(newEntry)
-    })
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(mockSavedEntry);
+      expect(toNewDaiaryEntry).toHaveBeenCalledWith(mockEntry);
+      expect(diariesServi.addDiary).toHaveBeenCalledWith(mockEntry);
+    });
 
-    test('should return 400 for invalid data', async () => {
-      ;(toNewDaiaryEntry as jest.Mock).mockImplementation(() => {
-        throw new Error('Invalid data')
-      })
+    it('should return 400 for malformed data', async () => {
+      (toNewDaiaryEntry as jest.Mock).mockImplementation(() => {
+        throw new Error('Invalid data');
+      });
 
       const response = await request(app)
         .post('/api/diaries')
-        .send({ invalid: 'data' })
+        .send({ invalid: 'data' });
       
-      expect(response.status).toBe(400)
-      expect(response.text).toBe('malformed data')
-    })
-  })
+      expect(response.status).toBe(400);
+      expect(response.text).toBe('malformed data');
+    });
+  });
 
-  describe('PUT /api/diaries/:id', () => {
-    test('should update an existing diary entry', async () => {
-      const updatedEntry = { 
-        comment: 'Updated entry', 
-        date: '2023-01-02', 
-        weather: 'rainy',
-        visibility: 'poor'
-      }
-      const mockUpdated = { id: 1, ...updatedEntry }
+  describe('PUT /:id', () => {
+    it('should update an existing diary entry', async () => {
+      const mockUpdate = { title: 'Updated Entry' };
+      const mockUpdatedEntry = { id: 1, ...mockUpdate };
       
-      ;(toNewDaiaryEntry as jest.Mock).mockReturnValue(updatedEntry)
-      ;(diariesService.updateDiaryEntry as jest.Mock).mockReturnValue(mockUpdated)
+      (toNewDaiaryEntry as jest.Mock).mockReturnValue(mockUpdate);
+      (diariesServi.updateDiaryEntry as jest.Mock).mockReturnValue(mockUpdatedEntry);
 
       const response = await request(app)
         .put('/api/diaries/1')
-        .send(updatedEntry)
+        .send(mockUpdate);
       
-      expect(response.status).toBe(200)
-      expect(response.body).toEqual(mockUpdated)
-      expect(diariesService.updateDiaryEntry).toHaveBeenCalledWith(1, updatedEntry)
-    })
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(mockUpdatedEntry);
+      expect(toNewDaiaryEntry).toHaveBeenCalledWith(mockUpdate);
+      expect(diariesServi.updateDiaryEntry).toHaveBeenCalledWith(1, mockUpdate);
+    });
 
-    test('should return 404 when entry not found', async () => {
-      const updatedEntry = { 
-        comment: 'Updated entry', 
-        date: '2023-01-02', 
-        weather: 'rainy',
-        visibility: 'poor'
-      }
+    it('should return 404 when entry to update is not found', async () => {
+      const mockUpdate = { title: 'Non-existent Entry' };
       
-      ;(toNewDaiaryEntry as jest.Mock).mockReturnValue(updatedEntry)
-      ;(diariesService.updateDiaryEntry as jest.Mock).mockReturnValue(null)
+      (toNewDaiaryEntry as jest.Mock).mockReturnValue(mockUpdate);
+      (diariesServi.updateDiaryEntry as jest.Mock).mockReturnValue(null);
 
       const response = await request(app)
         .put('/api/diaries/999')
-        .send(updatedEntry)
+        .send(mockUpdate);
       
-      expect(response.status).toBe(404)
-      expect(response.text).toBe('Diary entry not found')
-    })
+      expect(response.status).toBe(404);
+      expect(response.text).toBe('Diary entry not found');
+    });
 
-    test('should return 400 for invalid update data', async () => {
-      ;(toNewDaiaryEntry as jest.Mock).mockImplementation(() => {
-        throw new Error('Invalid data')
-      })
+    it('should return 400 for malformed update data', async () => {
+      (toNewDaiaryEntry as jest.Mock).mockImplementation(() => {
+        throw new Error('Invalid data');
+      });
 
       const response = await request(app)
         .put('/api/diaries/1')
-        .send({ invalid: 'data' })
+        .send({ invalid: 'data' });
       
-      expect(response.status).toBe(400)
-      expect(response.text).toBe('Malformed data or validation error')
-    })
-  })
-})
+      expect(response.status).toBe(400);
+      expect(response.text).toBe('Malformed data or validation error');
+    });
+  });
+});
