@@ -1,8 +1,8 @@
 import request from 'supertest'
 import express from 'express'
-import diariesRouter from '../routes/diaries'
-import * as diariesService from '../service/diariesService'
-import { toNewDaiaryEntry } from '../adapter'
+import diariesRouter from '../src/routes/diaries'
+import * as diariesService from '../src/service/diariesServi'
+import { toNewDaiaryEntry } from '../src/Adapter'
 
 // Mock de los módulos
 jest.mock('../service/diariesServi')
