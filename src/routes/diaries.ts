@@ -48,8 +48,9 @@ router.post('/notifications', (req, res) => {
     const subscription = req.body.subscription
     const notificationData = toNewNotification(req.body.notification)
 
-    if (!subscription) {
-      return res.status(400).send('Missing subscription data')
+    if (typeof subscription !== 'object' || subscription === null) {
+      res.status(400).send('Missing subscription data')
+      return
     }
 
     sendPushNotification(subscription, notificationData)

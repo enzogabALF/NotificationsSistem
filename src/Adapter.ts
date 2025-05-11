@@ -1,5 +1,4 @@
-import { Profesor, Carrera, Descripcion, Materia, NewDiaryEntry, Cargo, NewNotification } from './Interface'
-
+import { Profesor, Carrera, Descripcion, Materia, NewDiaryEntry, Cargo, NewNotification, DiaryEntry, Notification } from './Interface'
 const parseComent = (comemtFromRequest: any): Carrera => {
   if (!isString(comemtFromRequest) || !isCarrera(comemtFromRequest)) {
     throw new Error('Incorrect or missing comment')
@@ -72,6 +71,7 @@ const isPosicion = (params: any): boolean => {
 const isString = (string: String): boolean => {
   return typeof string === 'string'
 }
+
 const isBoolean = (boolean: boolean): boolean => {
   return typeof boolean === 'boolean'
 }
@@ -107,4 +107,21 @@ export const toNewNotification = (object: any): NewNotification => {
     createAt: parseDate(object.createdAt)
   }
   return newEntry
+}
+
+export const diaryEntryToNotification = (diaryEntry: DiaryEntry): Notification => {
+  const notification: Notification = {
+    id: diaryEntry.id, // Usa el mismo ID del DiaryEntry
+    profesor: diaryEntry.profesor,
+    vocal: Profesor.Gilda, // Puedes asignar un valor predeterminado o derivarlo de otra lógica
+    mensage: `Nueva notificación para la materia ${diaryEntry.materia}`,
+    fechaMesa: diaryEntry.fecha,
+    materia: diaryEntry.materia,
+    carrera: diaryEntry.carrera,
+    cargo: diaryEntry.cargo,
+    leido: false, // Por defecto, las notificaciones no están leídas
+    createAt: new Date() // Fecha de creación de la notificación
+  }
+
+  return notification
 }
