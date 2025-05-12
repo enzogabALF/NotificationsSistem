@@ -1,6 +1,6 @@
 import express from 'express'
 import * as diariesServi from '../service/diariesServi'
-import { toNewDaiaryEntry, toNewNotification } from '../Adapter'
+import { toNewDaiaryEntry, toNewNotification } from '../Adapters/Adapter'
 import { sendPushNotification } from '../service/notifications'
 
 const router = express.Router()

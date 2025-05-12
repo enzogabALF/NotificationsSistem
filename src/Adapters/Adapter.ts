@@ -1,4 +1,4 @@
-import { Profesor, Carrera, Descripcion, Materia, NewDiaryEntry, Cargo, NewNotification, DiaryEntry, Notification } from './Interface'
+import { Profesor, Carrera, Descripcion, Materia, NewDiaryEntry, Cargo, NewNotification, DiaryEntry, Notification } from '../interfaces/Interface'
 const parseComent = (comemtFromRequest: any): Carrera => {
   if (!isString(comemtFromRequest) || !isCarrera(comemtFromRequest)) {
     throw new Error('Incorrect or missing comment')
@@ -83,6 +83,7 @@ const isDate = (date: Date): boolean => {
 export const toNewDaiaryEntry = (object: any): NewDiaryEntry => {
   const newEntry: NewDiaryEntry = {
     profesor: parseProfesor(object.profesor),
+    vocal: parseProfesor(object.vocal),
     carrera: parseComent(object.carrera),
     materia: parseMaterias(object.materias),
     fecha: parseDate(object.fechaMesa),
@@ -110,11 +111,12 @@ export const toNewNotification = (object: any): NewNotification => {
 }
 
 export const diaryEntryToNotification = (diaryEntry: DiaryEntry): Notification => {
+  // Ensure diaryEntry.materia has a valid type
   const notification: Notification = {
     id: diaryEntry.id, // Usa el mismo ID del DiaryEntry
     profesor: diaryEntry.profesor,
-    vocal: Profesor.Gilda, // Puedes asignar un valor predeterminado o derivarlo de otra lógica
-    mensage: `Nueva notificación para la materia ${diaryEntry.materia}`,
+    vocal: diaryEntry.profesor,
+    mensage: `Nueva notificación para la materia ${diaryEntry.materia as string}`,
     fechaMesa: diaryEntry.fecha,
     materia: diaryEntry.materia,
     carrera: diaryEntry.carrera,

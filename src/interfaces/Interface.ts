@@ -31,6 +31,7 @@ export enum Cargo {
 export interface DiaryEntry {
   id: number
   profesor: Profesor
+  vocal: Profesor
   carrera: Carrera
   materia: Materia
   fecha: Date
