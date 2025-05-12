@@ -4,7 +4,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+     "dev": "ts-node-dev src/index.ts",
+    "lint": "ts-standard",
+    "start": "node build/index.js",
+    "tsc": "tsc"
   },
   "keywords": [],
   "author": "",

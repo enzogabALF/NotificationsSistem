@@ -1,5 +1,5 @@
 import { sendPushNotification } from '../service/notifications'
-import { Notification } from '../interfaces/Interface'
+import { Cargo, Carrera, Materia, Notification, Profesor } from '../interfaces/Interface'
 
 // Interfaz para el patrón Command
 interface Command {
@@ -33,7 +33,19 @@ const subscription = {
     auth: 'FAKEauthKey'
   }
 }
+const notification: Notification = {
+  id: 1,
+  profesor: Profesor.Gilda, // Ensure this matches the Profesor type
+  vocal: Profesor.Jose,
+  mensage: 'Examen final de Programacion Estructurada',
+  fechaMesa: new Date('2023-10-01'),
+  materia: Materia.ProgramacionEstructurada,
+  carrera: Carrera.IngenieriaEnSistemas,
+  cargo: Cargo.PresidenteDeMesa,
+  leido: false,
+  createAt: new Date()
+}
 
 // Crear y ejecutar el comando
-const command = new SendNotificationCommand(notification, subscription);
+const command = new SendNotificationCommand(notification, subscription)
 command.execute()

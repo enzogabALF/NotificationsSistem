@@ -17,7 +17,7 @@ webPush.setVapidDetails(
 export const sendPushNotification = (subscription: any, notification: NewNotification): void => {
   const payload = {
     title: `Notificación para ${notification.profesor}`,
-    body: `Mensaje: ${notification.mensaje}\nFecha: ${notification.fechaMesa}`,
+    // body: `Mensaje: ${notification.mensage}\nFecha: ${notification.fechaMesa}`,
     data: {
       carrera: notification.carrera,
       cargo: notification.cargo,

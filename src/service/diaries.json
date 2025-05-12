@@ -1,3 +1,38 @@
 [
-  
+  {
+    "id": 1,
+    "profesor": "Gilda Romero",
+    "vocal": "Jose Fernandez",
+    "carrera": "Ingeniería en Sistemas",
+    "materia": "Programacion Estructurada",
+    "fecha": "2025-05-15T10:00:00.000Z",
+    "descripcion": "Examen FInal",
+    "cargo": "Examinador",
+    "verification": true,
+    "createdAt": "2025-05-10T08:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "profesor": "Jose Fernandez",
+    "vocal": "Gilda Romero",
+    "carrera": "Arquitectura",
+    "materia": "Fisica",
+    "fecha": "2025-05-20T14:00:00.000Z",
+    "descripcion": "Mesa de examen especial",
+    "cargo": "Vocal de mesa",
+    "verification": false,
+    "createdAt": "2025-05-11T09:30:00.000Z"
+  },
+  {
+    "id": 3,
+    "profesor": "Gilda Romero",
+    "vocal": "Jose Fernandez",
+    "carrera": "Licenciatura de nutricion",
+    "materia": "Quimica",
+    "fecha": "2025-05-25T09:00:00.000Z",
+    "descripcion": "Examen FInal",
+    "cargo": "Examinador suplente",
+    "verification": true,
+    "createdAt": "2025-05-12T07:45:00.000Z"
+  } 
 ]
