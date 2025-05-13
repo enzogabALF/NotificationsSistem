@@ -4,8 +4,8 @@ import webPush from 'web-push'
 
 // Configura las claves VAPID
 const vapidKeys = {
-  publicKey: '<TU_CLAVE_PUBLICA>',
-  privateKey: '<TU_CLAVE_PRIVADA>'
+  publicKey: 'BJvHvXyqGfdkeG36PyrF359y2C3IIohVYjoPSueLm4jSzJDFBS10fZlbUj83tsjOtLq8dydt7d3tBPN-G4Lz63E',
+  privateKey: '2dyFfdkVUFD9dl8Y8KYsEipTn1KH-g75jb7uI7nnbyo'
 }
 
 webPush.setVapidDetails(
