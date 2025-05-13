@@ -1,7 +1,22 @@
 import { DiaryEntry, NewDiaryEntry, NoSensitiveInfoDiaryEntry } from '../interfaces/Interface'
 import diaryData from './diaries.json'
 
-const diaries: DiaryEntry[] = diaryData as DiaryEntry[]
+const toNewDiaryEntry = (entry: any): DiaryEntry => {
+  return {
+    id: entry.id,
+    profesor: entry.profesor,
+    vocal: entry.vocal,
+    carrera: entry.carrera,
+    materia: entry.materia,
+    fecha: entry.fecha,
+    descripcion: entry.descripcion,
+    cargo: entry.cargo,
+    verification: entry.verification,
+    createdAt: entry.createdAt
+  }
+}
+
+const diaries: DiaryEntry[] = diaryData.map((entry: any) => toNewDiaryEntry(entry))
 
 export const getEntries = (): DiaryEntry[] => diaries
 
