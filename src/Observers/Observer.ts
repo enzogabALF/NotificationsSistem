@@ -1,7 +1,8 @@
 // Interfaz para los observadores
-interface Observer {
+export interface Observer {
   update: (data: any) => void
 }
+
 
 // Clase concreta de un observador que maneja notificaciones
 class NotificationObserver implements Observer {
@@ -33,3 +34,5 @@ class NotificationSubject {
 // Exportamos una instancia del sujeto para que sea reutilizable
 export const notificationSubject = new NotificationSubject()
 export default NotificationObserver
+
+//   expect(notificationSubject).toBe(anotherImport);
