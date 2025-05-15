@@ -1,5 +1,5 @@
 # 📚 Aplicación Web de Notificación de Mesas de Exámenes
-![Tests](https://github.com/<TU_USUARIO>/<TU_REPO>/actions/workflows/test.yml/badge.svg)
+![Tests](https://github.com/enzogabALF/NotificationsSistem/actions/workflows/test.yml/badge.svg)
 
 Este proyecto es una Aplicación Web Progresiva (PWA) desarrollada para la Universidad de la Cuenca del Plata, orientada a modernizar la gestión docente vinculada a las mesas de examen finales. Permite notificar, consultar y gestionar de forma eficiente las mesas asignadas a los docentes.
 
