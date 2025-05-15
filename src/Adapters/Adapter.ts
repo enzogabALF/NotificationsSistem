@@ -35,10 +35,14 @@ const parsePosicion = (comemtFromRequest: any): Cargo => {
 }
 
 const parseDate = (comemtFromRequest: any): Date => {
-  if (!isDate(comemtFromRequest)) {
-    throw new Error('Incorrect or missing comment')
+  const date = (comemtFromRequest instanceof Date)
+    ? comemtFromRequest
+    : new Date(comemtFromRequest)
+
+  if (!isDate(date)) {
+    throw new Error('Incorrect or missing date')
   }
-  return comemtFromRequest
+  return date
 }
 
 const parseVerification = (comemtFromRequest: any): boolean => {
