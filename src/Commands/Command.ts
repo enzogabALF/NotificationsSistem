@@ -1,13 +1,14 @@
+// src/Commands/Command.ts
 import { sendPushNotification } from '../service/notifications'
 import { Cargo, Carrera, Materia, Notification, Profesor } from '../interfaces/Interface'
 
 // Interfaz para el patrón Command
-interface Command {
+export interface Command {  // Añadido export
   execute: () => void
 }
 
 // Clase concreta que implementa el comando para enviar notificaciones
-class SendNotificationCommand implements Command {
+export class SendNotificationCommand implements Command {  // Añadido export
   private readonly notification: Notification
   private readonly subscription: any
 
@@ -18,11 +19,10 @@ class SendNotificationCommand implements Command {
 
   execute = (): void => {
     console.log('Enviando notificación:', this.notification)
-
-    // Llamada al servicio de notificaciones
     sendPushNotification(this.subscription, this.notification)
   }
 }
+
 
 // Ejemplo de uso del patrón Command
 const subscription = {
