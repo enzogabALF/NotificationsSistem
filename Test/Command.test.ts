@@ -35,14 +35,14 @@ describe('SendNotificationCommand', () => {
     jest.clearAllMocks();
   });
 
-  it('should create a SendNotificationCommand instance', () => {
+  it('debe crear una instancia de comando de envío de notificación', () => {
     const command = new SendNotificationCommand(mockNotification, mockSubscription);
     
     expect(command).toBeInstanceOf(SendNotificationCommand);
     expect(command).toHaveProperty('execute');
   });
 
-  it('should call sendPushNotification when execute is called', () => {
+  it('Debería llamar para enviar una notificación push cuando se llama a ejecutar', () => {
     const command = new SendNotificationCommand(mockNotification, mockSubscription);
     
     command.execute();
@@ -54,7 +54,7 @@ describe('SendNotificationCommand', () => {
     );
   });
 
-  it('should log the notification when execute is called', () => {
+  it('Debería registrar la notificación cuando se llama a ejecutar', () => {
     const consoleSpy = jest.spyOn(console, 'log');
     const command = new SendNotificationCommand(mockNotification, mockSubscription);
     
@@ -68,7 +68,7 @@ describe('SendNotificationCommand', () => {
     consoleSpy.mockRestore();
   });
 
-  it('should handle different notification types', () => {
+  it('Debería manejar diferentes tipos de notificaciones', () => {
     const differentNotification = {
       ...mockNotification,
       materia: Materia.Fisica,

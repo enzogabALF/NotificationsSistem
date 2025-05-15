@@ -28,7 +28,7 @@ describe('Diaries Router', () => {
   })
 
   describe('GET /', () => {
-    it('should return all diary entries without sensitive info', async () => {
+    it('Debería devolver todas las entradas del diario sin información confidencial.', async () => {
       const mockEntries = [
         {
           profesor: 'Gilda Romero',
@@ -53,7 +53,7 @@ describe('Diaries Router', () => {
   })
 
   describe('GET /:id', () => {
-    it('should return a diary entry when it exists', async () => {
+    it('Debería devolver una entrada de diario cuando existe', async () => {
       const mockEntry = {
         id: 1,
         profesor: 'Gilda Romero',
@@ -75,7 +75,7 @@ describe('Diaries Router', () => {
       expect(diariesServi.findById).toHaveBeenCalledWith(1)
     })
 
-    it('should return 404 when diary entry does not exist', async () => {
+    it('Debería devolver 404 cuando la entrada de diario no existe', async () => {
       ;(diariesServi.findById as jest.Mock).mockReturnValue(undefined)
 
       const response = await request(app).get('/api/diaries/999')
@@ -87,7 +87,7 @@ describe('Diaries Router', () => {
   })
 
   describe('POST /', () => {
-    it('should add a new diary entry with valid data', async () => {
+    it('Debería agregar una nueva entrada de diario con datos válidos', async () => {
       const newEntryData = {
         profesor: 'Gilda Romero',
         vocal: 'Jose Fernandez',
@@ -118,7 +118,7 @@ describe('Diaries Router', () => {
       expect(diariesServi.addDiary).toHaveBeenCalledWith(newEntryData)
     })
 
-    it('should return 400 for malformed data', async () => {
+    it('Debería devolver 400 por datos malformados', async () => {
       ;(toNewDaiaryEntry as jest.Mock).mockImplementation(() => {
         throw new Error('Invalid data')
       })
@@ -133,7 +133,7 @@ describe('Diaries Router', () => {
   })
 
   describe('PUT /:id', () => {
-    it('should update an existing diary entry', async () => {
+    it('Debería actualizar una entrada de diario existente', async () => {
       const updatedData = {
         profesor: 'Gilda Romero',
         vocal: 'Jose Fernandez',
@@ -164,7 +164,7 @@ describe('Diaries Router', () => {
       expect(diariesServi.updateDiaryEntry).toHaveBeenCalledWith(1, updatedData)
     })
 
-    it('should return 404 when diary entry does not exist', async () => {
+    it('Debería devolver 404 cuando la entrada de diario no existe', async () => {
       const updatedData = {
         profesor: 'Gilda Romero',
         vocal: 'Jose Fernandez',
@@ -188,7 +188,7 @@ describe('Diaries Router', () => {
       expect(response.text).toBe('Diary entry not found')
     })
 
-    it('should return 400 for malformed data', async () => {
+    it('Debería devolver 400 por datos malformados', async () => {
       ;(toNewDaiaryEntry as jest.Mock).mockImplementation(() => {
         throw new Error('Invalid data')
       })
@@ -203,7 +203,7 @@ describe('Diaries Router', () => {
   })
 
   describe('POST /notifications', () => {
-    it('should send a notification with valid data', async () => {
+    it('Debería enviar una notificación con datos válidos', async () => {
       const subscription = { endpoint: 'test', keys: { auth: 'auth', p256dh: 'p256dh' } }
       const notificationData = {
         profesor: 'Gilda Romero',
@@ -233,7 +233,7 @@ describe('Diaries Router', () => {
       expect(notifications.sendPushNotification).toHaveBeenCalledWith(subscription, notificationData)
     })
 
-    it('should return 400 for missing subscription data', async () => {
+    it('Debería devolver 400 por datos de suscripción faltantes', async () => {
       const response = await request(app)
         .post('/api/diaries/notifications')
         .send({
@@ -244,7 +244,7 @@ describe('Diaries Router', () => {
       expect(response.text).toBe('Missing subscription data')
     })
 
-    it('should return 500 when notification fails', async () => {
+    it('Debería devolver 500 cuando falla la notificación', async () => {
       const subscription = { endpoint: 'test', keys: { auth: 'auth', p256dh: 'p256dh' } }
       const notificationData = {
         profesor: 'Gilda Romero',

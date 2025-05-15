@@ -54,7 +54,7 @@ describe('Notifications Service', () => {
   });
 
   describe('sendPushNotification', () => {
-    it('should call setVapidDetails with correct parameters', () => {
+    it('Debería llamar a setVapidDetails con los parámetros correctos', () => {
       sendPushNotification(mockSubscription, mockNotification);
       
       expect(webPush.setVapidDetails).toHaveBeenCalledTimes(1);
@@ -65,7 +65,7 @@ describe('Notifications Service', () => {
       );
     });
 
-    it('should send notification successfully', async () => {
+    it('Debería enviar la notificación correctamente', async () => {
       sendPushNotification(mockSubscription, mockNotification);
       await new Promise(process.nextTick);
 
@@ -83,7 +83,7 @@ describe('Notifications Service', () => {
       expect(notificationSubject.notify).toHaveBeenCalledWith(mockNotification);
     });
 
-    it('should handle error when sending notification fails', async () => {
+    it('Debería manejar el error cuando falla el envío de la notificación', async () => {
       const error = new Error('Error de red');
       (webPush.sendNotification as jest.Mock).mockRejectedValueOnce(error);
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -95,7 +95,7 @@ describe('Notifications Service', () => {
       consoleSpy.mockRestore();
     });
 
-    it('should include correct payload structure', () => {
+    it('Debería incluir la estructura de carga correcta', () => {
       sendPushNotification(mockSubscription, mockNotification);
 
       expect(webPush.sendNotification).toHaveBeenCalledWith(
