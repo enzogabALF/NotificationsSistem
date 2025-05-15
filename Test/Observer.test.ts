@@ -21,18 +21,18 @@ describe('Observer Pattern Implementation', () => {
   });
 
   describe('NotificationSubject', () => {
-    it('should attach an observer correctly', () => {
+    it('Debería adjuntar un observador correctamente', () => {
       notificationSubject.attach(mockObserver);
       expect(notificationSubject['observers']).toContain(mockObserver);
     });
 
-    it('should detach an observer correctly', () => {
+    it('Debería desadjuntar un observador correctamente', () => {
       notificationSubject.attach(mockObserver);
       notificationSubject.detach(mockObserver);
       expect(notificationSubject['observers']).not.toContain(mockObserver);
     });
 
-    it('should notify all attached observers', () => {
+    it('Debería notificar a todos los observadores adjuntos', () => {
       const secondObserver = { update: jest.fn() };
       
       notificationSubject.attach(mockObserver);
@@ -45,7 +45,7 @@ describe('Observer Pattern Implementation', () => {
       expect(secondObserver.update).toHaveBeenCalledWith(testData);
     });
 
-    it('should not notify detached observers', () => {
+    it('No debería notificar a los observadores desadjuntos', () => {
       notificationSubject.attach(mockObserver);
       notificationSubject.detach(mockObserver);
       
@@ -57,7 +57,7 @@ describe('Observer Pattern Implementation', () => {
   });
 
   describe('NotificationObserver', () => {
-    it('should log notification when update is called', () => {
+    it('Debería registrar la notificación cuando se llama a update', () => {
       const observer = new NotificationObserver();
       const testData = { message: 'Test notification' };
       
@@ -68,7 +68,7 @@ describe('Observer Pattern Implementation', () => {
   });
 
   describe('Singleton Behavior', () => {
-    it('should export a single instance of NotificationSubject', () => {
+    it('Debería exportar una única instancia de NotificationSubject', () => {
       const anotherImport = require('../src/Observers/Observer').notificationSubject;
       expect(notificationSubject).toBe(anotherImport);
     });

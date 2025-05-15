@@ -63,7 +63,7 @@ describe('Diaries Service', () => {
   })
 
   describe('getEntries', () => {
-    it('should return all diary entries', () => {
+    it('Debería devolver todas las entradas del diario.', () => {
       const entries = diariesServi.getEntries()
       expect(entries).toHaveLength(2)
       expect(entries[0].id).toBe(1)
@@ -72,20 +72,20 @@ describe('Diaries Service', () => {
   })
 
   describe('findById', () => {
-    it('should return entry when id exists', () => {
+    it('Debería devolver la entrada cuando el id existe', () => {
       const entry = diariesServi.findById(1)
       expect(entry?.id).toBe(1)
       expect(entry?.profesor).toBe(Profesor.Gilda)
     })
 
-    it('should return undefined when id does not exist', () => {
+    it('Debería devolver undefined cuando el id no existe', () => {
       const entry = diariesServi.findById(99)
       expect(entry).toBeUndefined()
     })
   })
 
   describe('getEntriesWithoutSensitiveInfo', () => {
-    it('should return entries without id and verification fields', () => {
+    it('Debe devolver entradas sin campos de identificación y verificación.', () => {
       const entries = diariesServi.getEntrisWithoutSensitiveInfo()
       
       // Verificar estructura completa
@@ -107,7 +107,7 @@ describe('Diaries Service', () => {
   })
 
   describe('addDiary', () => {
-    it('should add new entry with generated id', () => {
+    it('Debería agregar una nueva entrada con la identificación generada', () => {
       const newEntry: NewDiaryEntry = {
         profesor: Profesor.Gilda,
         vocal: Profesor.Jose,
@@ -128,20 +128,20 @@ describe('Diaries Service', () => {
   })
 
   describe('updateVerification', () => {
-    it('should update verification status', () => {
+    it('Debería actualizar el estado de verificación', () => {
       const updatedEntry = diariesServi.updateVerification(1, false)
       expect(updatedEntry?.verification).toBe(false)
       expect(diariesServi.findById(1)?.verification).toBe(false)
     })
 
-    it('should return null for non-existent id', () => {
+    it('Debería devolver null para id no existente', () => {
       const result = diariesServi.updateVerification(99, true)
       expect(result).toBeNull()
     })
   })
 
   describe('updateDiaryEntry', () => {
-    it('should update existing entry', () => {
+    it('Debería actualizar una entrada existente', () => {
       const updates: NewDiaryEntry = {
         profesor: Profesor.Jose,
         vocal: Profesor.Gilda,
@@ -160,7 +160,7 @@ describe('Diaries Service', () => {
       expect(diariesServi.findById(1)?.materia).toBe(Materia.DerechoCivil)
     })
 
-    it('should return null for non-existent id', () => {
+    it('Debería devolver null para id no existente', () => {
       const result = diariesServi.updateDiaryEntry(99, {} as NewDiaryEntry)
       expect(result).toBeNull()
     })

@@ -4,7 +4,7 @@ import { Profesor, Carrera, Materia, Descripcion, Cargo, DiaryEntry } from '../s
 
 describe('Adapter functions', () => {
   describe('toNewDaiaryEntry', () => {
-    test('should correctly parse a valid diary entry', () => {
+    test('debe analizar correctamente una entrada de diario válida', () => {
       const validEntry = {
         profesor: Profesor.Gilda,
         vocal: Profesor.Jose,
@@ -32,7 +32,7 @@ describe('Adapter functions', () => {
       });
     });
 
-    test('should throw error for invalid carrera', () => {
+    test('Debería arrojar un error por carrera no válida', () => {
       const invalidEntry = {
         profesor: Profesor.Gilda,
         vocal: Profesor.Jose,
@@ -48,7 +48,7 @@ describe('Adapter functions', () => {
       expect(() => toNewDaiaryEntry(invalidEntry)).toThrow('Incorrect or missing comment');
     });
 
-    test('should throw error for invalid profesor', () => {
+    test('Debería arrojar un error por profesor no válido', () => {
       const invalidEntry = {
         profesor: 'Invalid profesor',
         vocal: Profesor.Jose,
@@ -64,7 +64,7 @@ describe('Adapter functions', () => {
       expect(() => toNewDaiaryEntry(invalidEntry)).toThrow('Incorrect or missing comment');
     });
 
-    test('should throw error for invalid descripcion', () => {
+    test('Debería arrojar un error por descripción no válida', () => {
       const invalidEntry = {
         profesor: Profesor.Gilda,
         vocal: Profesor.Jose,
@@ -80,7 +80,7 @@ describe('Adapter functions', () => {
       expect(() => toNewDaiaryEntry(invalidEntry)).toThrow('Incorrect or missing comment');
     });
 
-    test('should throw error for invalid cargo', () => {
+    test('Debería generar un error por carga no válida', () => {
       const invalidEntry = {
         profesor: Profesor.Gilda,
         vocal: Profesor.Jose,
@@ -96,7 +96,7 @@ describe('Adapter functions', () => {
       expect(() => toNewDaiaryEntry(invalidEntry)).toThrow('Incorrect or missing comment');
     });
 
-    test('should throw error for invalid verification (not boolean)', () => {
+    test('Debería generar un error por verificación no válida (no booleana)', () => {
       const invalidEntry = {
         profesor: Profesor.Gilda,
         vocal: Profesor.Jose,
@@ -112,7 +112,7 @@ describe('Adapter functions', () => {
       expect(() => toNewDaiaryEntry(invalidEntry)).toThrow('Incorrect or missing comment');
     });
 
-    test('should throw error for invalid date', () => {
+    test('Debería arrojar un error por fecha no válida', () => {
       const invalidEntry = {
         profesor: Profesor.Gilda,
         vocal: Profesor.Jose,
@@ -130,7 +130,7 @@ describe('Adapter functions', () => {
   });
 
   describe('toNewNotification', () => {
-    test('should correctly parse a valid notification', () => {
+    test('debe analizar correctamente una notificación válida', () => {
       const validNotification = {
         profesor: Profesor.Jose,
         vocal: Profesor.Gilda,
@@ -158,7 +158,7 @@ describe('Adapter functions', () => {
       });
     });
 
-    test('should throw error for invalid materia', () => {
+    test('Debería arrojar un error por materia no válida', () => {
       const invalidNotification = {
         profesor: Profesor.Jose,
         vocal: Profesor.Gilda,
@@ -174,7 +174,7 @@ describe('Adapter functions', () => {
       expect(() => toNewNotification(invalidNotification)).toThrow('Incorrect or missing comment');
     });
 
-    test('should throw error for invalid profesor', () => {
+    test('Debería arrojar un error por profesor no válido', () => {
       const invalidNotification = {
         profesor: 'Invalid profesor',
         vocal: Profesor.Gilda,
@@ -190,7 +190,7 @@ describe('Adapter functions', () => {
       expect(() => toNewNotification(invalidNotification)).toThrow('Incorrect or missing comment');
     });
 
-    test('should throw error for invalid cargo', () => {
+    test('Debería generar un error por carga no válida', () => {
       const invalidNotification = {
         profesor: Profesor.Jose,
         vocal: Profesor.Gilda,
@@ -206,7 +206,7 @@ describe('Adapter functions', () => {
       expect(() => toNewNotification(invalidNotification)).toThrow('Incorrect or missing comment');
     });
 
-    test('should throw error for invalid leido (not boolean)', () => {
+    test('Debería arrojar un error por leido no válido (no booleana)', () => {
       const invalidNotification = {
         profesor: Profesor.Jose,
         vocal: Profesor.Gilda,
@@ -224,7 +224,7 @@ describe('Adapter functions', () => {
   });
 
   describe('diaryEntryToNotification', () => {
-    test('should correctly convert a diary entry to a notification', () => {
+    test('debe convertir correctamente una entrada de diario en una notificación', () => {
       const diaryEntry: DiaryEntry = {
         id: 1,
         profesor: Profesor.Gilda,
@@ -254,7 +254,7 @@ describe('Adapter functions', () => {
       });
     });
 
-    test('should use the same id from diary entry', () => {
+    test('Debería usar el mismo id de la entrada de diario', () => {
       const diaryEntry: DiaryEntry = {
         id: 42,
         profesor: Profesor.Jose,

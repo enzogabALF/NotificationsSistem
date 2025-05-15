@@ -12,7 +12,7 @@ describe('NotificationService', () => {
   })
 
   describe('Singleton Pattern', () => {
-    it('should always return the same instance', () => {
+    it('siempre debe devolver la misma instancia', () => {
       const instance1 = notificationService
       const instance2 = notificationService
       expect(instance1).toBe(instance2)
@@ -20,7 +20,7 @@ describe('NotificationService', () => {
   })
 
   describe('sendNotification', () => {
-    it('should call sendPushNotification with correct parameters', async () => {
+    it('Debería llamar a sendPushNotification con los parámetros correctos', async () => {
       const mockSubscription = { endpoint: 'test-endpoint', keys: { auth: 'auth', p256dh: 'p256dh' } }
       const mockNotification: NewNotification = {
         profesor: Profesor.Gilda,
@@ -40,7 +40,7 @@ describe('NotificationService', () => {
       expect(sendPushNotification).toHaveBeenCalledWith(mockSubscription, mockNotification)
     })
 
-    it('should handle errors from sendPushNotification', async () => {
+    it('Debe manejar errores de sendPushNotification', async () => {
       const mockError = new Error('Error de prueba')
       ;(sendPushNotification as jest.Mock).mockRejectedValue(mockError)
       
